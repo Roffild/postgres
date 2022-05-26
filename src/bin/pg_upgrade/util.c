@@ -47,7 +47,10 @@ end_progress_output(void)
 	 * nicely.
 	 */
 	if (log_opts.isatty)
-		pg_log(PG_REPORT, "\r%-*s", MESSAGE_WIDTH, "");
+	{
+		printf("\r");
+		pg_log(PG_REPORT, "%-*s", MESSAGE_WIDTH, "");
+	}
 	else if (log_opts.verbose)
 		pg_log(PG_REPORT, "%-*s", MESSAGE_WIDTH, "");
 }
@@ -143,6 +146,7 @@ pg_log_v(eLogType type, const char *fmt, va_list ap)
 			break;
 
 		case PG_STATUS:
+
 			/*
 			 * For output to a display, do leading truncation. Append \r so
 			 * that the next message is output at the start of the line.
